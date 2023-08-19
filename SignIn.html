@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home-Page</title>
+    <style>
+body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        #container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            width: 400px;
+        }
+        #navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgb(65, 65, 185);
+            padding: 10px;
+            color: white;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 20px;
+        }
+        #personalBloggingApp {
+            margin: 0;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        #personalBloggingSignup {
+            border: none;
+            background: none;
+            color: white;
+            cursor: pointer;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: rgb(65, 65, 185);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: rgb(45, 45, 165);
+        }
+    </style>
+</head>
+<body>
+  <div id="container">
+    <div id="navbar">
+        <h3 id="personalBloggingApp">Personal Blogging Application</h3>
+        <button id="personalBloggingSignup">Signup</button>
+        
+    </div>
+    <h1>Login Page</h1>
+    <label for="lemail">Sign-In Email</label>
+    <input type="email" id="lemail">
+    <label for="lpassword">Sign-In Password</label>
+    <input type="password" id="lpassword">
+    <button id="signIn">Sign-In Button</button>
+    </div>
+    
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+      import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+      import { getDatabase, ref } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js"; // Add this line
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyA4yombMrdxGv0wx2-G10oSOxeygCTSSNA",
+    authDomain: "hacktion11-d0e56.firebaseapp.com",
+    projectId: "hacktion11-d0e56",
+    storageBucket: "hacktion11-d0e56.appspot.com",
+    messagingSenderId: "51714301154",
+    appId: "1:51714301154:web:f24e7c81b90f3d905652bb",
+    measurementId: "G-3EFFLTJNE6"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const database = getDatabase(app);
+      const usersRef = ref(database, "users"); // You can change "users" to your desired database path
+
+      const personalBloggingSignup = document.getElementById("personalBloggingSignup");
+        personalBloggingSignup.addEventListener("click", () => {
+            location.href = "./index.html";
+        });
+
+        const signIn = document.getElementById("signIn");
+        signIn.addEventListener('click', () => {
+            let email = document.getElementById("lemail").value;
+            let password = document.getElementById("lpassword").value;
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    console.log(user.email);
+                    alert('Sign-In Successfully!');
+                    location.href = "./indexFinalLatest.html";
+                })
+                .catch((error) => {
+                    alert('Sign-In Failed. Please check your credentials!');
+                    console.log(error.code, error.message);
+                });
+        });
+    </script>
+</body>
+</html>
